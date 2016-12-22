@@ -95,6 +95,12 @@
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <AdditionalDependencies>$(SolutionDir)\lib\SFML\lib\sfml-audio-d.lib;$(SolutionDir)\lib\SFML\lib\sfml-graphics-d.lib;$(SolutionDir)\lib\SFML\lib\sfml-window-d.lib;$(SolutionDir)\lib\SFML\lib\sfml-system-d.lib;$(SolutionDir)\lib\SFML\lib\sfml-network-d.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
+    <PostBuildEvent>
+      <Command>copy "$(SolutionDir)lib\SFML\bin\" "$(TargetDir)"
+mkdir "$(TargetDir)Media"
+xcopy /s /i /y "$(ProjectDir)Media" "$(TargetDir)Media"  
+</Command>
+    </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <ClCompile>
