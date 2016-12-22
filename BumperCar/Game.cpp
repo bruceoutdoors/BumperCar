@@ -106,6 +106,11 @@ void Game::update(sf::Time elapsedTime)
 	if (mIsMovingRight)
 		movement.x += PlayerSpeed;
 
+
+	if (mPlayer.getGlobalBounds().intersects(mBall.getGlobalBounds())) {
+		mBall.move(mBall.getPosition() - mPlayer.getPosition());
+	}
+
 	mPlayer.move(movement * elapsedTime.asSeconds());
 }
 
