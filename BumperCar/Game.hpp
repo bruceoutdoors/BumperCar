@@ -25,6 +25,14 @@ private:
 	sf::RenderWindow mWindow;
 	sf::Texture	mTexture;
 	sf::Sprite mPlayer;
+
+	sf::Sprite mBall;
+	sf::Texture	mBallTexture;
+
+
+	sf::Sprite mBackground;
+	sf::Texture	mBackgroundTexture;
+
 	sf::Font mFont;
 	sf::Text mStatisticsText;
 	sf::Time mStatisticsUpdateTime;

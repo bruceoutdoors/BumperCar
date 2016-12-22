@@ -5,10 +5,12 @@ const float Game::PlayerSpeed = 100.f;
 const sf::Time Game::TimePerFrame = sf::seconds(1.f / 60.f);
 
 Game::Game()
-	: mWindow(sf::VideoMode(640, 480), "SFML Application", sf::Style::Close)
+	: mWindow(sf::VideoMode(800, 480), "SFML Application", sf::Style::Close)
 	, mTexture()
 	, mPlayer()
+	, mBall()
 	, mFont()
+	, mBackground()
 	, mStatisticsText()
 	, mStatisticsUpdateTime()
 	, mStatisticsNumFrames(0)
@@ -24,6 +26,22 @@ Game::Game()
 
 	mPlayer.setTexture(mTexture);
 	mPlayer.setPosition(100.f, 100.f);
+
+	if (!mBallTexture.loadFromFile("Media/Textures/ball.png"))
+	{
+		// Handle loading error
+	}
+
+	mBall.setTexture(mBallTexture);
+	mBall.setPosition(400.f, 275.f);
+
+
+	if (!mBackgroundTexture.loadFromFile("Media/Textures/football-pitch.png"))
+	{
+		// Handle loading error
+	}
+
+	mBackground.setTexture(mBackgroundTexture);
 
 	mFont.loadFromFile("Media/Sansation.ttf");
 	mStatisticsText.setFont(mFont);
@@ -94,7 +112,9 @@ void Game::update(sf::Time elapsedTime)
 void Game::render()
 {
 	mWindow.clear();
+	mWindow.draw(mBackground);
 	mWindow.draw(mPlayer);
+	mWindow.draw(mBall);
 	mWindow.draw(mStatisticsText);
 	mWindow.display();
 }
