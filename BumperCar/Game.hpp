@@ -37,6 +37,9 @@ private:
 	sf::Text mStatisticsText;
 	sf::Time mStatisticsUpdateTime;
 
+	float mPlayerRotation;
+	sf::Vector2f mDirection;
+
 	std::size_t mStatisticsNumFrames;
 	bool mIsMovingUp;
 	bool mIsMovingDown;

@@ -1,6 +1,10 @@
 #include "Game.hpp"
 #include <string>
+#include <cmath>
+#include <iostream>
 
+const float M_PI = 3.141592f;
+const float ROTATE_SPEED = 1.5f;
 const float Game::PlayerSpeed = 100.f;
 const sf::Time Game::TimePerFrame = sf::seconds(1.f / 60.f);
 
@@ -18,6 +22,7 @@ Game::Game()
 	, mIsMovingDown(false)
 	, mIsMovingRight(false)
 	, mIsMovingLeft(false)
+	, mPlayerRotation(0)
 {
 	if (!mTexture.loadFromFile("Media/Textures/porsche.png"))
 	{
@@ -49,6 +54,8 @@ Game::Game()
 	mStatisticsText.setCharacterSize(10);
 
 	mWindow.setFramerateLimit(60);
+	mPlayer.setOrigin(mTexture.getSize().x / 2, mTexture.getSize().y / 2);
+	
 }
 
 void Game::run()
@@ -111,7 +118,25 @@ void Game::update(sf::Time elapsedTime)
 		mBall.move(mBall.getPosition() - mPlayer.getPosition());
 	}
 
-	mPlayer.move(movement * elapsedTime.asSeconds());
+	auto left = mPlayer.getRotation() - mPlayerRotation;
+	left = left < 0 ? 360 + left : left;
+	auto righ = mPlayerRotation - mPlayer.getRotation();
+	righ = righ < 0 ? 360 + righ : righ;
+
+	auto pos = mPlayer.getPosition() - static_cast<sf::Vector2f>(sf::Mouse::getPosition(mWindow));
+	mPlayerRotation = (std::atan2f(pos.y, pos.x) * 180.0f / M_PI) + 270.0f;
+	if (mPlayerRotation > 360) mPlayerRotation -= 360;
+	auto mPlayerRotationRad = (mPlayer.getRotation() - 90) * M_PI / 180.0f;
+	mDirection = sf::Vector2f(std::cosf(mPlayerRotationRad), std::sinf(mPlayerRotationRad));
+
+	if (righ < left) {
+		mPlayer.rotate(ROTATE_SPEED);
+	}
+	else {
+		mPlayer.rotate(-ROTATE_SPEED);
+	}
+
+	mPlayer.move(mDirection * 1.5f);
 }
 
 void Game::render()
