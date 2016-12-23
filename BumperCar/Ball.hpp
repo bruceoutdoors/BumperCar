@@ -8,8 +8,8 @@ class Ball : public sf::Sprite {
 	sf::Vector2f forceVector;
 	sf::Vector2f velocity;
 
-	float mass = 0.001;
-	float friction = 0.9;
+	float mass = 0.01;
+	float friction = 0.99;
 	sf::Vector2f acceleration = sf::Vector2f(0,0);
 
 	public:
@@ -27,16 +27,34 @@ class Ball : public sf::Sprite {
 			}
 			velocity += deltaTime.asSeconds() * acceleration;
 			acceleration = sf::Vector2f(0, 0);
-			std::cout << (acceleration.x * deltaTime.asSeconds())
-				<< " " <<
-				(acceleration.y * deltaTime.asSeconds()) << std::endl;
-			move(velocity * deltaTime.asSeconds());
+
+			
 			if (getPosition().x > 750 || getPosition().x < 50) {
+				if (getPosition().x > 750) {
+					setPosition(750, getPosition().y);
+				}
+				else {
+					setPosition(50, getPosition().y);
+				}
+				std::cout << (velocity.x)
+					<< " " <<
+					(velocity.y) << std::endl;
 				velocity.x = -velocity.x;
 			}
 			if (getPosition().y > 430 || getPosition().y < 50) {
+				std::cout << (velocity.x)
+					<< " " <<
+					(velocity.y) << std::endl;
 				velocity.y = -velocity.y;
+				if (getPosition().y > 430) {
+					setPosition(getPosition().x, 430);
+				}
+				else {
+					setPosition(getPosition().x, 50);
+				}
+				//}
 			}
+			move(velocity * deltaTime.asSeconds());
 			velocity *= friction;
 		}
 		void applyForce(sf::Vector2f fv) {

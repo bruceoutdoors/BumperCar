@@ -5,7 +5,7 @@
 
 const float M_PI = 3.141592f;
 const float ROTATE_SPEED = 1.5f;
-const float Game::PlayerSpeed = 100.f;
+//const float Game::PlayerSpeed = 3500.f;
 const sf::Time Game::TimePerFrame = sf::seconds(1.f / 60.f);
 
 Game::Game()
@@ -69,14 +69,15 @@ void Game::run()
 	while (mWindow.isOpen())
 	{
 		sf::Time elapsedTime = clock.restart();
-		timeSinceLastUpdate += elapsedTime;
-		while (timeSinceLastUpdate > TimePerFrame)
-		{
-			timeSinceLastUpdate -= TimePerFrame;
+		//timeSinceLastUpdate += elapsedTime;
+		//while (timeSinceLastUpdate > TimePerFrame)
+		//{
+		//	timeSinceLastUpdate -= TimePerFrame;
 
-			processEvents();
-			update(TimePerFrame);
-		}
+
+		//}
+		//processEvents();
+		update(elapsedTime);
 
 		updateStatistics(elapsedTime);
 		render();
@@ -108,14 +109,14 @@ void Game::processEvents()
 void Game::update(sf::Time elapsedTime)
 {
 	sf::Vector2f movement(0.f, 0.f);
-	if (mIsMovingUp)
-		movement.y -= PlayerSpeed;
-	if (mIsMovingDown)
-		movement.y += PlayerSpeed;
-	if (mIsMovingLeft)
-		movement.x -= PlayerSpeed;
-	if (mIsMovingRight)
-		movement.x += PlayerSpeed;
+	//if (mIsMovingUp)
+	//	movement.y -= PlayerSpeed;
+	//if (mIsMovingDown)
+	//	movement.y += PlayerSpeed;
+	//if (mIsMovingLeft)
+	//	movement.x -= PlayerSpeed;
+	//if (mIsMovingRight)
+	//	movement.x += PlayerSpeed;
 
 
 	if (mPlayer.getGlobalBounds().intersects(mBall.getGlobalBounds())) {
