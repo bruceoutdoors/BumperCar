@@ -1,6 +1,7 @@
 #pragma  once 
 
 #include <SFML/Graphics.hpp>
+#include "Ball.hpp"
 
 class Game : private sf::NonCopyable
 {
@@ -26,8 +27,10 @@ private:
 	sf::Texture	mTexture;
 	sf::Sprite mPlayer;
 
-	sf::Sprite mBall;
-	sf::Texture	mBallTexture;
+	//sf::Sprite mBall;
+	//sf::Texture	mBallTexture;
+
+	Ball mBall;
 
 
 	sf::Sprite mBackground;

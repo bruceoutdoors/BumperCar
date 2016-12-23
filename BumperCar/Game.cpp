@@ -32,12 +32,16 @@ Game::Game()
 	mPlayer.setTexture(mTexture);
 	mPlayer.setPosition(100.f, 100.f);
 
-	if (!mBallTexture.loadFromFile("Media/Textures/ball.png"))
-	{
+	//if (!mBallTexture.loadFromFile("Media/Textures/ball.png"))
+	//{
 		// Handle loading error
-	}
+	//}
 
-	mBall.setTexture(mBallTexture);
+	//mBall.setTexture(mBallTexture);
+	//mBall.setPosition(400.f, 275.f);
+
+	mBall.loadAndSetTexture("Media/Textures/ball.png");
+
 	mBall.setPosition(400.f, 275.f);
 
 
@@ -115,8 +119,10 @@ void Game::update(sf::Time elapsedTime)
 
 
 	if (mPlayer.getGlobalBounds().intersects(mBall.getGlobalBounds())) {
-		mBall.move(mBall.getPosition() - mPlayer.getPosition());
+		mBall.applyForce(mBall.getPosition() - mPlayer.getPosition());
+
 	}
+	mBall.update(elapsedTime);
 
 	auto left = mPlayer.getRotation() - mPlayerRotation;
 	left = left < 0 ? 360 + left : left;
