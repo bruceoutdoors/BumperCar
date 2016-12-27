@@ -36,15 +36,9 @@ class PhysicsEntity : public sf::Sprite {
 				else {
 					setPosition(40, getPosition().y);
 				}
-				std::cout << (velocity.x)
-					<< " " <<
-					(velocity.y) << std::endl;
 				velocity.x = -velocity.x;
 			}
 			if (getPosition().y > 550 || getPosition().y < 40) {
-				std::cout << (velocity.x)
-					<< " " <<
-					(velocity.y) << std::endl;
 				velocity.y = -velocity.y;
 				if (getPosition().y > 550) {
 					setPosition(getPosition().x, 550);

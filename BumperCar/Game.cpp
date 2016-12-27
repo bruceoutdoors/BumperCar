@@ -37,12 +37,12 @@ Game::Game()
 
 	mPlayer.setTexture(mTexture);
 	mPlayer.setPosition(100.f, 100.f);
-	mPlayer.setMass(0.002);
+	mPlayer.setMass(0.005);
 
 
 	mOpponent.setTexture(mTexture);
 	mOpponent.setPosition(500.f, 100.f);
-	mOpponent.setMass(0.002);
+	mOpponent.setMass(0.005);
 
 	//if (!mBallTexture.loadFromFile("Media/Textures/ball.png"))
 	//{
@@ -100,7 +100,7 @@ Game::Game()
 		}
 	}
 	else {
-		sf::Socket::Status status = socket.connect("192.168.0.151", 53000);
+		sf::Socket::Status status = socket.connect("127.0.0.1", 53000);
 		if (status != sf::Socket::Done)
 		{
 			// error...
