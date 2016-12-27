@@ -2,18 +2,18 @@
 #include <SFML/Graphics.hpp>
 #include <string>
 #include <iostream>
-class Ball : public sf::Sprite {
+class PhysicsEntity : public sf::Sprite {
 	sf::Texture mTexture;
 
 	sf::Vector2f forceVector;
 	sf::Vector2f velocity;
 
-	float mass = 0.01;
+	float mass = 0.001;
 	float friction = 0.99;
 	sf::Vector2f acceleration = sf::Vector2f(0,0);
 
 	public:
-		Ball() {
+		PhysicsEntity() {
 		};
 
 		void loadAndSetTexture(std::string textureFilePath) {
@@ -60,6 +60,12 @@ class Ball : public sf::Sprite {
 		void applyForce(sf::Vector2f fv) {
 			//move(fv);
 			forceVector += fv;
+		}
+		void setMass(float input_mass) {
+			mass = input_mass;
+		}
+		void setFriction(float input_friction) {
+			friction = input_friction;
 		}
 
 };

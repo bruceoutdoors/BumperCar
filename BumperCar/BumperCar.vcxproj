@@ -165,7 +165,7 @@ xcopy /s /i /y "$(ProjectDir)Media" "$(TargetDir)Media"
     <ClCompile Include="Main.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="Ball.hpp" />
+    <ClInclude Include="PhysicsEntity.hpp" />
     <ClInclude Include="Game.hpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

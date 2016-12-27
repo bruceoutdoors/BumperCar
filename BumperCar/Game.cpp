@@ -24,6 +24,7 @@ Game::Game()
 	, mIsMovingLeft(false)
 	, mPlayerRotation(0)
 {
+
 	if (!mTexture.loadFromFile("Media/Textures/porsche.png"))
 	{
 		// Handle loading error
@@ -31,6 +32,8 @@ Game::Game()
 
 	mPlayer.setTexture(mTexture);
 	mPlayer.setPosition(100.f, 100.f);
+	mPlayer.setMass(0.005);
+	//mPlayer.loadAndSetTexture("Media/Textures/porsche.png");
 
 	//if (!mBallTexture.loadFromFile("Media/Textures/ball.png"))
 	//{
@@ -121,9 +124,10 @@ void Game::update(sf::Time elapsedTime)
 
 	if (mPlayer.getGlobalBounds().intersects(mBall.getGlobalBounds())) {
 		mBall.applyForce(mBall.getPosition() - mPlayer.getPosition());
-
+		mPlayer.applyForce(mPlayer.getPosition() - mBall.getPosition());
 	}
 	mBall.update(elapsedTime);
+	mPlayer.update(elapsedTime);
 
 	auto left = mPlayer.getRotation() - mPlayerRotation;
 	left = left < 0 ? 360 + left : left;

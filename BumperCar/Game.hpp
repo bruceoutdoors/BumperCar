@@ -1,7 +1,7 @@
 #pragma  once 
 
 #include <SFML/Graphics.hpp>
-#include "Ball.hpp"
+#include "PhysicsEntity.hpp"
 
 class Game : private sf::NonCopyable
 {
@@ -25,12 +25,12 @@ private:
 
 	sf::RenderWindow mWindow;
 	sf::Texture	mTexture;
-	sf::Sprite mPlayer;
+	PhysicsEntity mPlayer;
 
 	//sf::Sprite mBall;
 	//sf::Texture	mBallTexture;
 
-	Ball mBall;
+	PhysicsEntity mBall;
 
 
 	sf::Sprite mBackground;
