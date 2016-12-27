@@ -42,6 +42,7 @@ Game::Game()
 
 	mPlayer.setTexture(mTexture);
 	mPlayer.setPosition(100.f, 100.f);
+	mPlayer.setMass(0.002);
 
 	//if (!mBallTexture.loadFromFile("Media/Textures/ball.png"))
 	//{
@@ -143,9 +144,11 @@ void Game::update(sf::Time elapsedTime)
 
 	if (mPlayer.getGlobalBounds().intersects(mBall.getGlobalBounds())) {
 		mBall.applyForce(mBall.getPosition() - mPlayer.getPosition());
+		mPlayer.applyForce(mPlayer.getPosition() - mBall.getPosition());
 
 	}
 	mBall.update(elapsedTime);
+	mPlayer.update(elapsedTime);
 
 	auto left = mPlayer.getRotation() - mPlayerRotation;
 	left = left < 0 ? 360 + left : left;
