@@ -41,13 +41,13 @@ class Ball : public sf::Sprite {
 					(velocity.y) << std::endl;
 				velocity.x = -velocity.x;
 			}
-			if (getPosition().y > 430 || getPosition().y < 50) {
+			if (getPosition().y > 550 || getPosition().y < 50) {
 				std::cout << (velocity.x)
 					<< " " <<
 					(velocity.y) << std::endl;
 				velocity.y = -velocity.y;
-				if (getPosition().y > 430) {
-					setPosition(getPosition().x, 430);
+				if (getPosition().y > 550) {
+					setPosition(getPosition().x, 550);
 				}
 				else {
 					setPosition(getPosition().x, 50);

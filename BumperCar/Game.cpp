@@ -9,7 +9,7 @@ const float ROTATE_SPEED = 1.5f;
 const sf::Time Game::TimePerFrame = sf::seconds(1.f / 60.f);
 
 Game::Game()
-	: mWindow(sf::VideoMode(800, 480), "SFML Application", sf::Style::Close)
+	: mWindow(sf::VideoMode(800, 640), "SFML Application", sf::Style::Close)
 	, mTexture()
 	, mPlayer()
 	, mBall()
