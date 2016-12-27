@@ -38,7 +38,14 @@ private:
 
 	sf::Font mFont;
 	sf::Text mStatisticsText;
+	sf::Text mLeftScoreText;
+	sf::Text mRightScoreText;
+	int leftScore = 0;
+	int rightScore = 0;
+
 	sf::Time mStatisticsUpdateTime;
+	sf::RectangleShape leftPost;
+	sf::RectangleShape rightPost;
 
 	float mPlayerRotation;
 	sf::Vector2f mDirection;
