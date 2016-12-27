@@ -3,8 +3,8 @@
 #include <cmath>
 #include <iostream>
 
-const float M_PI = 3.141592f;
-const float ROTATE_SPEED = 1.5f;
+
+
 //const float Game::PlayerSpeed = 3500.f;
 const sf::Time Game::TimePerFrame = sf::seconds(1.f / 60.f);
 const sf::Vector2f centerOfMap = sf::Vector2f(375.f, 290.f);
@@ -19,11 +19,6 @@ Game::Game()
 	, mStatisticsText()
 	, mStatisticsUpdateTime()
 	, mStatisticsNumFrames(0)
-	, mIsMovingUp(false)
-	, mIsMovingDown(false)
-	, mIsMovingRight(false)
-	, mIsMovingLeft(false)
-	, mPlayerRotation(0)
 	, leftPost()
 	, rightPost()
 {
@@ -81,8 +76,8 @@ Game::Game()
 	mRightScoreText.setColor(sf::Color(255, 0, 0));
 
 	mWindow.setFramerateLimit(60);
+
 	mPlayer.setOrigin(mTexture.getSize().x / 2, mTexture.getSize().y / 2);
-	
 }
 
 void Game::run()
@@ -132,51 +127,25 @@ void Game::processEvents()
 void Game::update(sf::Time elapsedTime)
 {
 	sf::Vector2f movement(0.f, 0.f);
-	//if (mIsMovingUp)
-	//	movement.y -= PlayerSpeed;
-	//if (mIsMovingDown)
-	//	movement.y += PlayerSpeed;
-	//if (mIsMovingLeft)
-	//	movement.x -= PlayerSpeed;
-	//if (mIsMovingRight)
-	//	movement.x += PlayerSpeed;
 
 
 	if (mPlayer.getGlobalBounds().intersects(mBall.getGlobalBounds())) {
 		mBall.applyForce(mBall.getPosition() - mPlayer.getPosition());
 		mPlayer.applyForce(mPlayer.getPosition() - mBall.getPosition());
-
 	}
+
 	mBall.update(elapsedTime);
+
 	mPlayer.update(elapsedTime);
-
-	auto left = mPlayer.getRotation() - mPlayerRotation;
-	left = left < 0 ? 360 + left : left;
-	auto righ = mPlayerRotation - mPlayer.getRotation();
-	righ = righ < 0 ? 360 + righ : righ;
-
-	auto pos = mPlayer.getPosition() - static_cast<sf::Vector2f>(sf::Mouse::getPosition(mWindow));
-	mPlayerRotation = (std::atan2f(pos.y, pos.x) * 180.0f / M_PI) + 270.0f;
-	if (mPlayerRotation > 360) mPlayerRotation -= 360;
-	auto mPlayerRotationRad = (mPlayer.getRotation() - 90) * M_PI / 180.0f;
-	mDirection = sf::Vector2f(std::cosf(mPlayerRotationRad), std::sinf(mPlayerRotationRad));
-
-	if (righ < left) {
-		mPlayer.rotate(ROTATE_SPEED);
-	}
-	else {
-		mPlayer.rotate(-ROTATE_SPEED);
-	}
-
-	mPlayer.move(mDirection * 3.0f);
+	mPlayer.follow(sf::Mouse::getPosition(mWindow));
 
 	auto ballBound = mBall.getGlobalBounds();
 	bool hasScored = false;
 
 	if (leftPost.getGlobalBounds().intersects(ballBound)) {
 		hasScored = true;
-		leftScore++;
-		mLeftScoreText.setString("Blue: " + std::to_string(leftScore));
+		mPlayer.incrementScore();
+		mLeftScoreText.setString("Blue: " + std::to_string(mPlayer.getScore()));
 	}
 	else if (rightPost.getGlobalBounds().intersects(ballBound)) {
 		hasScored = true;
@@ -222,12 +191,9 @@ void Game::updateStatistics(sf::Time elapsedTime)
 
 void Game::handlePlayerInput(sf::Keyboard::Key key, bool isPressed)
 {
+	/*
 	if (key == sf::Keyboard::W)
-		mIsMovingUp = isPressed;
+		// blablabla
 	else if (key == sf::Keyboard::S)
-		mIsMovingDown = isPressed;
-	else if (key == sf::Keyboard::A)
-		mIsMovingLeft = isPressed;
-	else if (key == sf::Keyboard::D)
-		mIsMovingRight = isPressed;
+	*/
 }

@@ -161,10 +161,12 @@ xcopy /s /i /y "$(ProjectDir)Media" "$(TargetDir)Media"
     <Text Include="ReadMe.txt" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="BumperPlayer.cpp" />
     <ClCompile Include="Game.cpp" />
     <ClCompile Include="Main.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="BumperPlayer.hpp" />
     <ClInclude Include="PhysicsEntity.hpp" />
     <ClInclude Include="Game.hpp" />
   </ItemGroup>

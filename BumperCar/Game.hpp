@@ -2,6 +2,7 @@
 
 #include <SFML/Graphics.hpp>
 #include "PhysicsEntity.hpp"
+#include "BumperPlayer.hpp"
 
 class Game : private sf::NonCopyable
 {
@@ -25,10 +26,7 @@ private:
 
 	sf::RenderWindow mWindow;
 	sf::Texture	mTexture;
-	PhysicsEntity mPlayer;
-
-	//sf::Sprite mBall;
-	//sf::Texture	mBallTexture;
+	BumperPlayer mPlayer;
 
 	PhysicsEntity mBall;
 
@@ -47,14 +45,9 @@ private:
 	sf::RectangleShape leftPost;
 	sf::RectangleShape rightPost;
 
-	float mPlayerRotation;
-	sf::Vector2f mDirection;
+	
 
 	std::size_t mStatisticsNumFrames;
-	bool mIsMovingUp;
-	bool mIsMovingDown;
-	bool mIsMovingRight;
-	bool mIsMovingLeft;
 };
 
 
