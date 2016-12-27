@@ -39,6 +39,11 @@ Game::Game()
 	mPlayer.setPosition(100.f, 100.f);
 	mPlayer.setMass(0.002);
 
+
+	mOpponent.setTexture(mTexture);
+	mOpponent.setPosition(500.f, 100.f);
+	mOpponent.setMass(0.002);
+
 	//if (!mBallTexture.loadFromFile("Media/Textures/ball.png"))
 	//{
 		// Handle loading error
@@ -78,6 +83,30 @@ Game::Game()
 	mWindow.setFramerateLimit(60);
 
 	mPlayer.setOrigin(mTexture.getSize().x / 2, mTexture.getSize().y / 2);
+
+	
+	if (isHost) {
+		// bind the listener to a port
+		if (listener.listen(53000) != sf::Socket::Done)
+		{
+			// error...
+		}
+
+		// accept a new connection
+
+		if (listener.accept(socket) != sf::Socket::Done)
+		{
+			// error...
+		}
+	}
+	else {
+		sf::Socket::Status status = socket.connect("192.168.0.151", 53000);
+		if (status != sf::Socket::Done)
+		{
+			// error...
+		}
+	}
+	
 }
 
 void Game::run()
@@ -127,17 +156,50 @@ void Game::processEvents()
 void Game::update(sf::Time elapsedTime)
 {
 	sf::Vector2f movement(0.f, 0.f);
+	sf::Packet packet;
+	
+	if (isHost) {
+		mPlayer.follow(sf::Mouse::getPosition(mWindow));
+		float x, y;
+		socket.receive(packet);
+		packet >> x >> y;
+		mOpponent.setPosition(sf::Vector2f(x, y));
+		packet.clear();
+		packet << mPlayer.getPosition().x << mPlayer.getPosition().y;
+		socket.send(packet);
+	}
+	else {
+		mOpponent.follow(sf::Mouse::getPosition(mWindow));
+		float x, y;
+		packet << mOpponent.getPosition().x << mOpponent.getPosition().y;
+		socket.send(packet);
+		packet.clear();
+		socket.receive(packet);
+		packet >> x >> y;
+		mPlayer.setPosition(sf::Vector2f(x, y));
+
+		
+	}
 
 
 	if (mPlayer.getGlobalBounds().intersects(mBall.getGlobalBounds())) {
 		mBall.applyForce(mBall.getPosition() - mPlayer.getPosition());
 		mPlayer.applyForce(mPlayer.getPosition() - mBall.getPosition());
 	}
+	if (mOpponent.getGlobalBounds().intersects(mBall.getGlobalBounds())) {
+		mBall.applyForce(mBall.getPosition() - mOpponent.getPosition());
+		mOpponent.applyForce(mOpponent.getPosition() - mBall.getPosition());
+	}
+	if (mPlayer.getGlobalBounds().intersects(mOpponent.getGlobalBounds())) {
+		mPlayer.applyForce(mPlayer.getPosition() - mOpponent.getPosition());
+		mOpponent.applyForce(mOpponent.getPosition() - mPlayer.getPosition());
+	}
 
 	mBall.update(elapsedTime);
 
 	mPlayer.update(elapsedTime);
-	mPlayer.follow(sf::Mouse::getPosition(mWindow));
+	mOpponent.update(elapsedTime);
+
 
 	auto ballBound = mBall.getGlobalBounds();
 	bool hasScored = false;
@@ -152,7 +214,6 @@ void Game::update(sf::Time elapsedTime)
 		rightScore++;
 		mRightScoreText.setString("Red: " + std::to_string(rightScore));
 	}
-
 	if (hasScored) {
 		mBall.setPosition(centerOfMap);
 		mBall.resetMovement();
@@ -164,6 +225,7 @@ void Game::render()
 	mWindow.clear();
 	mWindow.draw(mBackground);
 	mWindow.draw(mPlayer);
+	mWindow.draw(mOpponent);
 	mWindow.draw(mBall);
 	mWindow.draw(mStatisticsText);
 	mWindow.draw(leftPost);

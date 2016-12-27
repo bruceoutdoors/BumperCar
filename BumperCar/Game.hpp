@@ -1,6 +1,7 @@
 #pragma  once 
 
 #include <SFML/Graphics.hpp>
+#include <SFML/Network.hpp>
 #include "PhysicsEntity.hpp"
 #include "BumperPlayer.hpp"
 
@@ -26,7 +27,7 @@ private:
 
 	sf::RenderWindow mWindow;
 	sf::Texture	mTexture;
-	BumperPlayer mPlayer;
+	BumperPlayer mPlayer, mOpponent;
 
 	PhysicsEntity mBall;
 
@@ -44,6 +45,12 @@ private:
 	sf::Time mStatisticsUpdateTime;
 	sf::RectangleShape leftPost;
 	sf::RectangleShape rightPost;
+
+
+	sf::TcpSocket socket;
+	sf::TcpListener listener;
+
+	bool isHost = false;
 
 	
 
