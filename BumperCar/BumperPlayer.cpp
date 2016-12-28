@@ -40,8 +40,8 @@ void BumperPlayer::follow(sf::Vector2i mousePosition)
 	else {
 		rotate(-mRotationSpeed);
 	}
-
-	move(mDirection * mSpeed);
+	addVelocity(mDirection * mSpeed);
+	//move(mDirection * mSpeed);
 }
 
 void BumperPlayer::setRotationSpeed(float speed)

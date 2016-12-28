@@ -29,22 +29,22 @@ class PhysicsEntity : public sf::Sprite {
 			acceleration = sf::Vector2f(0, 0);
 
 			
-			if (getPosition().x > 710 || getPosition().x < 40) {
-				if (getPosition().x > 710) {
-					setPosition(710, getPosition().y);
+			if (getPosition().x > 800 || getPosition().x < 0) {
+				if (getPosition().x > 800) {
+					setPosition(800, getPosition().y);
 				}
 				else {
-					setPosition(40, getPosition().y);
+					setPosition(0, getPosition().y);
 				}
 				velocity.x = -velocity.x;
 			}
-			if (getPosition().y > 550 || getPosition().y < 40) {
+			if (getPosition().y > 600 || getPosition().y < 0) {
 				velocity.y = -velocity.y;
-				if (getPosition().y > 550) {
-					setPosition(getPosition().x, 550);
+				if (getPosition().y > 600) {
+					setPosition(getPosition().x, 600);
 				}
 				else {
-					setPosition(getPosition().x, 40);
+					setPosition(getPosition().x, 0);
 				}
 				//}
 			}
@@ -67,6 +67,18 @@ class PhysicsEntity : public sf::Sprite {
 		}
 		void setFriction(float input_friction) {
 			friction = input_friction;
+		}
+		sf::Vector2f getVelocity() {
+			return velocity;
+		}
+		float getMass() {
+			return mass;
+		}
+		void setVelocity(sf::Vector2f input_velocity) {
+			velocity = input_velocity;
+		}
+		void addVelocity(sf::Vector2f input_velocity) {
+			velocity += input_velocity;
 		}
 
 };
