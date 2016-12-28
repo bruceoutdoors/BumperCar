@@ -27,6 +27,7 @@ private:
 
 	sf::RenderWindow mWindow;
 	sf::Texture	mTexture;
+	sf::Texture	redPorsche;
 	BumperPlayer mPlayer, mOpponent;
 
 	PhysicsEntity mBall;

@@ -12,6 +12,7 @@ const sf::Vector2f centerOfMap = sf::Vector2f(375.f, 290.f);
 Game::Game()
 	: mWindow(sf::VideoMode(800, 640), "SFML Application", sf::Style::Close)
 	, mTexture()
+	, redPorsche()
 	, mPlayer()
 	, mBall()
 	, mFont()
@@ -39,8 +40,9 @@ Game::Game()
 	mPlayer.setPosition(100.f, 100.f);
 	mPlayer.setMass(0.005);
 
-
-	mOpponent.setTexture(mTexture);
+	
+	redPorsche.loadFromFile("Media/Textures/porscheRED.png");
+	mOpponent.setTexture(redPorsche);
 	mOpponent.setPosition(500.f, 100.f);
 	mOpponent.setMass(0.005);
 
