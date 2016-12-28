@@ -38,36 +38,29 @@ Game::Game()
 	rightPost.setFillColor(sf::Color(255, 50, 50));
 	rightPost.setPosition(sf::Vector2f(755, 245));
 
-	if (!mTexture.loadFromFile("Media/Textures/porsche.png"))
-	{
-		// Handle loading error
+	if (!mTexture.loadFromFile("Media/Textures/porsche.png")) {
+		throw new std::runtime_error("Unable to find texture for blue porsche car!");
+	}
+
+	if (!redPorsche.loadFromFile("Media/Textures/porscheRED.png")) {
+		throw new std::runtime_error("Unable to find texture for red porsche car!");
+	}
+
+	if (!mBackgroundTexture.loadFromFile("Media/Textures/football-pitch.png")) {
+		throw new std::runtime_error("Unable to find texture for football field!");
 	}
 
 	mPlayer.setTexture(mTexture);
 	mPlayer.setPosition(100.f, 100.f);
 	mPlayer.setMass(0.005);
-
 	
-	redPorsche.loadFromFile("Media/Textures/porscheRED.png");
 	mOpponent.setTexture(redPorsche);
 	mOpponent.setPosition(500.f, 100.f);
 	mOpponent.setMass(0.005);
 
-	//if (!mBallTexture.loadFromFile("Media/Textures/ball.png"))
-	//{
-		// Handle loading error
-	//}
-
-	//mBall.setTexture(mBallTexture);
 
 	mBall.loadAndSetTexture("Media/Textures/ball.png");
-
 	mBall.setPosition(centerOfMap);
-
-	if (!mBackgroundTexture.loadFromFile("Media/Textures/football-pitch.png"))
-	{
-		// Handle loading error
-	}
 
 	mBackground.setTexture(mBackgroundTexture);
 

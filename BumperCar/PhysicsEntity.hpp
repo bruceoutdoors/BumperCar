@@ -12,6 +12,7 @@ Contacts    #2 : 0164111005 yonglian146@gmail.com
 #include <SFML/Graphics.hpp>
 #include <string>
 #include <iostream>
+#include <exception>
 
 class PhysicsEntity : public sf::Sprite {
 	sf::Texture mTexture;
@@ -28,7 +29,10 @@ class PhysicsEntity : public sf::Sprite {
 		};
 
 		void loadAndSetTexture(std::string textureFilePath) {
-			mTexture.loadFromFile(textureFilePath);
+			if (!mTexture.loadFromFile(textureFilePath)) {
+				throw new std::runtime_error("Unable to find texture for PhysicsEntity!");
+			}
+
 			setTexture(mTexture);
 		};
 		void update(sf::Time deltaTime) {
