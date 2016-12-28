@@ -29,10 +29,10 @@ void BumperPlayer::follow(sf::Vector2i mousePosition)
 	righ = righ < 0 ? 360 + righ : righ;
 
 	auto pos = getPosition() - static_cast<sf::Vector2f>(mousePosition);
-	mPlayerRotation = (std::atan2f(pos.y, pos.x) * 180.0f / M_PI) + 270.0f;
+	mPlayerRotation = (std::atan2(pos.y, pos.x) * 180.0f / M_PI) + 270.0f;
 	if (mPlayerRotation > 360) mPlayerRotation -= 360;
 	auto mPlayerRotationRad = (getRotation() - 90) * M_PI / 180.0f;
-	mDirection = sf::Vector2f(std::cosf(mPlayerRotationRad), std::sinf(mPlayerRotationRad));
+	mDirection = sf::Vector2f(std::cos(mPlayerRotationRad), std::sin(mPlayerRotationRad));
 
 	if (righ < left) {
 		rotate(mRotationSpeed);
