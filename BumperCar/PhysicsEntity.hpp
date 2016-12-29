@@ -20,7 +20,7 @@ class PhysicsEntity : public sf::Sprite {
 	sf::Vector2f forceVector;
 	sf::Vector2f velocity;
 
-	float mass = 0.001;
+	float mass = 0.003;
 	float friction = 0.99;
 	sf::Vector2f acceleration = sf::Vector2f(0,0);
 

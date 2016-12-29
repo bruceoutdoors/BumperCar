@@ -162,23 +162,25 @@ void Game::update(sf::Time elapsedTime)
 	
 	if (isHost) {
 		mPlayer.follow(sf::Mouse::getPosition(mWindow));
-		float x, y;
+		float x, y, opponentRotation;
 		socket.receive(packet);
-		packet >> x >> y;
+		packet >> x >> y >> opponentRotation;
 		mOpponent.setPosition(sf::Vector2f(x, y));
+		mOpponent.setRotation(opponentRotation);
 		packet.clear();
-		packet << mPlayer.getPosition().x << mPlayer.getPosition().y;
+		packet << mPlayer.getPosition().x << mPlayer.getPosition().y << mPlayer.getRotation();
 		socket.send(packet);
 	}
 	else {
 		mOpponent.follow(sf::Mouse::getPosition(mWindow));
-		float x, y;
-		packet << mOpponent.getPosition().x << mOpponent.getPosition().y;
+		float x, y, playerRotation;
+		packet << mOpponent.getPosition().x << mOpponent.getPosition().y << mOpponent.getRotation();
 		socket.send(packet);
 		packet.clear();
 		socket.receive(packet);
-		packet >> x >> y;
+		packet >> x >> y >> playerRotation;
 		mPlayer.setPosition(sf::Vector2f(x, y));
+		mPlayer.setRotation(playerRotation);
 
 		
 	}
